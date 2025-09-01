@@ -1,26 +1,26 @@
 ## QR Reader & Generator
 
-Bu proje, QR kodları oluşturma, okuma ve çözümleme işlemlerini gerçekleştiren Python tabanlı bir uygulamadır. Proje, hem kameradan canlı QR kod okuma hem de mevcut QR görsellerini çözümleme özelliklerini içerir.
+This project is a Python-based application for creating, reading, and decoding QR codes. It supports both live QR code scanning from a camera and decoding existing QR code images.
 
 ---
 
-## İçerik
+## Contents
 
 - `qr_generator.py`  
-  QR kodu oluşturmak için kullanılır. Metni Base64 formatında encode eder ve `.png` dosyası olarak kaydeder.
+  Used to generate QR codes. Encodes the text in Base64 format and saves it as a `.png` file.
 
 - `qr_reader.py` / `qr.py`  
-  Kameradan QR kodları okur ve çözümler. Kodun üzerine bounding box çizer ve QR kod içeriğini ekranda gösterir.  
+  Reads and decodes QR codes from a camera. Draws a bounding box around the code and displays the content on the screen.
 
 - `qr-base-reader.py`  
-  Var olan QR kod görsellerini çözümlemek için kullanılır. Çözümlenen metni bounding box ve yazı ile görselleştirir. Base64 veya UTF-8 formatında çözümleme yapar.
+  Used to decode existing QR code images. Visualizes the decoded text with bounding boxes and labels. Can decode Base64 or UTF-8 encoded text.
 
 - `data-storage.py`  
-  QR kodlarından çözülen metni JSON formatında kaydeder. Örnek olarak `"decode"` alanında QR kod sonucu saklanır.
+  Saves decoded QR code data in JSON format. For example, the QR code result is stored under the `"decode"` key.
 
 ---
 
-## Gereksinimler
+## Requirements
 
 - Python 3.x  
 - OpenCV (`cv2`)  
@@ -29,55 +29,66 @@ Bu proje, QR kodları oluşturma, okuma ve çözümleme işlemlerini gerçekleş
 - qrcode  
 - base64  
 
-Kurulum için:
+Install dependencies with:
 
 ```bash
 pip install opencv-python pillow pyzbar qrcode
+
 ```
 
-## Kullanım
-# 1. QR Kod Oluşturma
+## Usage
+# 1. Generate a QR Code
 ```bash
 python qr_generator.py
 ``` 
-Oluşturulan QR kod qr_kitlenme_basarili_utf8.png olarak kaydedilir.
 
-# 2. QR Kod Görseli Çözümleme
+The generated QR code will be saved as:
+
+qr_kitlenme_basarili_utf8.png
+
+
+# 2. Decode a QR Code Image
 ```bash 
 python qr-base-reader.py
 ```
 
-Mevcut .png dosyasını çözümleyerek bounding_box_and_polygon.png olarak kaydeder.
+# Decodes the image and saves:
+bounding_box_and_polygon.png
 
-Çözümlenen metin terminalde gösterilir.
+# Example output in terminal:
+Çözümlenen QR Metni: kitlenme başarılı
 
-# 3. Canlı Kamera ile QR Kod Okuma
+# 3. Read QR Codes from a Live Camera
 ``` bash
 python qr_reader.py
 ```
+Live camera window opens.
+Detected QR code output example:
+Tespit edilen QR kodu: kitlenme başarılı
 
-Kameradan QR kod okur ve ekranda gösterir.
+Press 'q' to exit the live camera.
 
-Çözülen metin terminalde görünür.
-
-q tuşuna basarak çıkış yapabilirsiniz.
-
-# 4. QR Kod Sonucunu JSON Olarak Kaydetme
+# 4.Save QR Code Result as JSON
+``` bash
 python data-storage.py
+```
 
-
-Çözülen QR kod sonucu qr_output.json dosyasına kaydedilir.
  ``` bash 
-Örnek JSON Çıktısı (qr_output.json)
+# Output saved to:
+
+qr_output.json
+
+# Example JSON content:
 {
   "decode": "kitlenme başarılı"
 }
+
 ```
 
-## Notlar
+## Notes
 
-qr_reader.py ve qr.py dosyaları benzer işlevleri yapar; istersen tek birini kullanabilirsin.
+qr_reader.py and qr.py have similar functionality; you can use either one.
 
-Kamera açılmazsa veya kare alınamazsa, ilgili hata mesajları terminalde gösterilir.
+If the camera does not open or frames cannot be captured, relevant error messages will appear in the terminal.
 
-qr-base-reader.py Base64 ile kodlanmış metinleri çözümleyebilir.
+qr-base-reader.py can decode Base64-encoded text.
